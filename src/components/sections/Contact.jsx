@@ -33,7 +33,7 @@ const Contact = () => {
             <div className="container">
                 <div className="grid md:grid-cols-2 gap-16">
                     <div data-aos="fade-right">
-                        <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                        <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-6">
                             {lang === 'uz' ? 'Keling, ' : "Let's "}
                             <span className="gradient-text">
                                 {lang === 'uz' ? 'bog‘lanamiz' : 'Connect'}
@@ -92,7 +92,7 @@ const Contact = () => {
                                         type="text"
                                         value={formData.name}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-black/20 border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-indigo-500"
+                                        className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-black/20 backdrop-blur-sm border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
                                         required
                                     />
                                 </div>
@@ -105,7 +105,7 @@ const Contact = () => {
                                         type="email"
                                         value={formData.email}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-black/20 border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-indigo-500"
+                                        className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-black/20 backdrop-blur-sm border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
                                         required
                                     />
                                 </div>
@@ -120,7 +120,7 @@ const Contact = () => {
                                     type="text"
                                     value={formData.subject}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-black/20 border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-indigo-500"
+                                    className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-black/20 backdrop-blur-sm border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all font-medium"
                                     required
                                 />
                             </div>
@@ -134,7 +134,7 @@ const Contact = () => {
                                     rows="4"
                                     value={formData.message}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-black/20 border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-indigo-500 resize-none"
+                                    className="w-full px-4 py-3 rounded-xl bg-white/50 dark:bg-black/20 backdrop-blur-sm border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all resize-none font-medium"
                                     required
                                 ></textarea>
                             </div>

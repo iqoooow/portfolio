@@ -20,7 +20,7 @@ const Portfolio = () => {
         <section id="portfolio" className="section-padding">
             <div className="container">
                 <div className="text-center max-w-2xl mx-auto mb-16" data-aos="fade-up">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                    <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
                         {lang === 'uz' ? 'Tanlangan ' : 'Featured '}
                         <span className="gradient-text">
                             {lang === 'uz' ? 'loyihalar' : 'Projects'}

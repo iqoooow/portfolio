@@ -42,7 +42,7 @@ const Testimonials = () => {
         <section id="testimonials" className="section-padding bg-slate-50 dark:bg-slate-900/50">
             <div className="container max-w-4xl mx-auto text-center">
                 <div className="mb-16" data-aos="fade-up">
-                    <h2 className="text-4xl font-bold mb-4">
+                    <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4">
                         {lang === 'uz' ? 'Mijozlar' : 'Client'}{' '}
                         <span className="gradient-text">
                             {lang === 'uz' ? 'fikrlari' : 'Stories'}

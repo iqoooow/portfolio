@@ -2,7 +2,8 @@ import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
 
 const Footer = () => {
     return (
-        <footer className="glass border-t border-gray-200 dark:border-gray-800 py-10 mt-20">
+        <footer className="glass border-t border-indigo-100 dark:border-indigo-900/30 py-10 mt-20 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-50"></div>
             <div className="container flex flex-col md:flex-row justify-between items-center gap-6">
                 <div className="text-center md:text-left">
                     <h3 className="text-2xl font-bold gradient-text mb-2">iqooow</h3>

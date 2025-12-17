@@ -36,7 +36,7 @@ const Hero = () => {
             <div className="container grid md:grid-cols-2 gap-10 items-center">
                 {/* Text Content */}
                 <div className="order-2 md:order-1" data-aos="fade-right">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-sm font-medium text-indigo-600 dark:text-indigo-400 mb-6">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass text-xs md:text-sm font-medium text-indigo-600 dark:text-indigo-400 mb-4 md:mb-6">
                         <span className="relative flex h-3 w-3">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-3 w-3 bg-indigo-500"></span>
@@ -44,16 +44,16 @@ const Hero = () => {
                         {lang === 'uz' ? 'Freelance uchun ochiqman' : 'Available for Freelance'}
                     </div>
 
-                    <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+                    <h1 className="text-3xl sm:text-4xl md:text-7xl font-extrabold leading-tight mb-4 md:mb-6">
                         {lang === 'uz' ? "Salom, men " : "Hi, I'm "}
                         <span className="gradient-text">{profile.full_name}</span>
                         <br />
-                        <span className="text-4xl md:text-6xl text-muted text-transparent bg-clip-text bg-gradient-to-r from-slate-600 to-slate-400 dark:from-slate-300 dark:to-slate-500">
+                        <span className="text-2xl sm:text-3xl md:text-6xl text-muted text-transparent bg-clip-text bg-gradient-to-r from-slate-600 to-slate-400 dark:from-slate-300 dark:to-slate-500">
                             {profile.role}
                         </span>
                     </h1>
 
-                    <p className="text-lg text-muted mb-8 max-w-lg leading-relaxed">
+                    <p className="text-base md:text-lg text-muted mb-6 md:mb-8 max-w-lg leading-relaxed">
                         {/* Hero uchun alohida matn bo'lsa, o'shani ko'rsatamiz, bo'lmasa umumiy bio */}
                         {(() => {
                             const base = profile.hero_bio || profile.bio || '';
@@ -68,12 +68,12 @@ const Hero = () => {
                     </p>
 
                     <div className="flex flex-wrap gap-4">
-                        <a href="#contact" className="btn btn-primary">
-                            Hire Me <ArrowRight size={20} />
+                        <a href="#contact" className="btn btn-primary text-sm md:text-base">
+                            Hire Me <ArrowRight size={18} />
                         </a>
                         {profile.cv_url && (
-                            <a href={profile.cv_url} className="btn btn-outline" download>
-                                Download CV <Download size={20} />
+                            <a href={profile.cv_url} className="btn btn-outline text-sm md:text-base" download>
+                                Download CV <Download size={18} />
                             </a>
                         )}
                     </div>
@@ -81,7 +81,7 @@ const Hero = () => {
 
                 {/* Illustration / Visual */}
                 <div className="order-1 md:order-2 flex-center relative" data-aos="fade-left">
-                    <div className="relative w-[300px] h-[300px] md:w-[500px] md:h-[500px]">
+                    <div className="relative w-full max-w-[300px] aspect-square md:w-[500px] md:h-[500px]">
                         {/* Abstract Floating Elements mimicking 3D */}
                         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-[2rem] rotate-12 blur-2xl opacity-40 animate-pulse"></div>
 
