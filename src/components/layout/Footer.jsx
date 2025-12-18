@@ -17,9 +17,6 @@ const Footer = () => {
                     <a href="https://linkedin.com/in/ixlosbek-rajabboyev-b87b4539a" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full glass hover:text-indigo-500 transition-colors">
                         <Linkedin size={20} />
                     </a>
-                    <a href="https://twitter.com/iqooow" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full glass hover:text-indigo-500 transition-colors">
-                        <Twitter size={20} />
-                    </a>
                     <a href="mailto:ixashix7@gmail.com" className="p-2 rounded-full glass hover:text-indigo-500 transition-colors">
                         <Mail size={20} />
                     </a>
