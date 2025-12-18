@@ -14,7 +14,7 @@ const Footer = () => {
                     <a href="https://github.com/iqoooow" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full glass hover:text-indigo-500 transition-colors">
                         <Github size={20} />
                     </a>
-                    <a href="https://linkedin.com/in/iqooow" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full glass hover:text-indigo-500 transition-colors">
+                    <a href="www.linkedin.com/in/ixlosbek-rajabboyev-b87b4539a" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full glass hover:text-indigo-500 transition-colors">
                         <Linkedin size={20} />
                     </a>
                     <a href="https://twitter.com/iqooow" target="_blank" rel="noopener noreferrer" className="p-2 rounded-full glass hover:text-indigo-500 transition-colors">
