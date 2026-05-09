@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
-import { Trash2, Plus, Save, ExternalLink, Github, Image, X, Sparkles, Loader2, Link as LinkIcon, Edit3 } from 'lucide-react';
+import { Trash2, Plus, Save, ExternalLink, Github, Image, X, Sparkles, Loader2, Link as LinkIcon, Edit3, Database } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const ProjectsManager = () => {
