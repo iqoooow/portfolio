@@ -88,6 +88,7 @@ create policy "Public items are visible to everyone" on public.testimonials for 
 
 -- Messages are NOT public (Only admin can see)
 create policy "Admins can view messages" on public.messages for select using (auth.role() = 'authenticated');
+create policy "Admins can delete messages" on public.messages for delete using (auth.role() = 'authenticated');
 
 -- Policies: Authenticated Insert/Update/Delete (Only Admin)
 create policy "Admins can insert profile" on public.profile for insert with check (auth.role() = 'authenticated');
