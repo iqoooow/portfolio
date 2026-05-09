@@ -1,10 +1,12 @@
-import { Layout, Smartphone, PenTool, Server, Share2, Database, Code, Sparkles, ArrowUpRight } from 'lucide-react';
+import { Layout as LayoutIcon, Smartphone, PenTool, Server, Share2, Database, Code, Sparkles, ArrowUpRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../../context/LanguageContext';
+import { staggerContainer, staggerItem } from '../../lib/animations';
 
 const IconMap = {
-    Layout, Smartphone, PenTool, Server, Share2, Database, Code
+    Layout: LayoutIcon, Smartphone, PenTool, Server, Share2, Database, Code
 };
 
 const Services = () => {
@@ -50,12 +52,18 @@ const Services = () => {
             <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-white/10 to-transparent"></div>
             
             <div className="container">
-                <div className="text-center max-w-3xl mx-auto mb-20" data-aos="fade-up">
+                <motion.div 
+                    className="text-center max-w-3xl mx-auto mb-20"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                >
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white dark:bg-white/5 text-xs font-semibold text-gray-600 dark:text-gray-300 mb-6 border border-gray-200 dark:border-white/10 shadow-sm">
                         <Sparkles size={14} className="text-indigo-500" /> 
                         {lang === 'uz' ? 'Mening tajribam' : 'My Expertise'}
                     </div>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading mb-6 tracking-tight">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading mb-6 tracking-tight text-gray-900 dark:text-white">
                         {lang === 'uz' ? 'Qanday ' : 'What '}
                         <span className="gradient-text">
                             {lang === 'uz' ? 'Yordam Bera Olaman' : 'I Do Best'}
@@ -66,7 +74,7 @@ const Services = () => {
                             ? 'Loyiha g‘oyasidan boshlab, to‘liq ishga tushirishgacha bo‘lgan barcha bosqichlarda sizga eng zamonaviy yechimlarni taqdim etaman.'
                             : 'From initial concept to flawless execution, I deliver cutting-edge solutions designed to elevate your digital presence.'}
                     </p>
-                </div>
+                </motion.div>
 
                 {isLoading ? (
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -75,7 +83,13 @@ const Services = () => {
                         ))}
                     </div>
                 ) : (
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <motion.div 
+                        className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+                        initial="initial"
+                        whileInView="animate"
+                        viewport={{ once: true }}
+                        variants={staggerContainer}
+                    >
                         {services.length === 0 ? (
                             <p className="col-span-3 text-center text-gray-500">
                                 {lang === 'uz' ? 'Xizmatlar hali qo‘shilmagan.' : 'No services added yet.'}
@@ -84,11 +98,10 @@ const Services = () => {
                             services.map((service, index) => {
                                 const Icon = IconMap[service.icon] || Code;
                                 return (
-                                    <div
+                                    <motion.div
                                         key={service.id}
-                                        className="glass-card p-8 sm:p-10 rounded-[2rem] group relative overflow-hidden"
-                                        data-aos="fade-up"
-                                        data-aos-delay={index * 100}
+                                        variants={staggerItem}
+                                        className="glass-card p-8 sm:p-10 rounded-[2rem] group relative overflow-hidden bg-white dark:bg-[#0a0a0a]"
                                     >
                                         <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transform translate-x-4 -translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300">
                                             <ArrowUpRight size={24} className="text-indigo-400" />
@@ -110,11 +123,11 @@ const Services = () => {
                                         
                                         {/* Hover Gradient Background */}
                                         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-[2rem]"></div>
-                                    </div>
+                                    </motion.div>
                                 );
                             })
                         )}
-                    </div>
+                    </motion.div>
                 )}
             </div>
         </section>

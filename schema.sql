@@ -116,3 +116,30 @@ create policy "Everyone can insert messages" on public.messages for insert with 
 -- Insert Default Profile Data (Placeholder)
 insert into public.profile (full_name, role, bio, email, location)
 values ('iqooow', 'Full-Stack Developer', 'I build accessible, pixel-perfect, secure, and performant web applications.', 'hello@iqooow.dev', 'Tashkent, Uzbekistan');
+
+-- 7. Blogs Table
+create table public.blogs (
+  id uuid primary key default uuid_generate_v4(),
+  title text not null,
+  slug text not null unique,
+  excerpt text,
+  content text not null,
+  cover_url text,
+  tags text[],
+  published boolean default false,
+  created_at timestamp with time zone default timezone('utc'::text, now()),
+  updated_at timestamp with time zone default timezone('utc'::text, now())
+);
+
+alter table public.blogs enable row level security;
+
+-- Public can read published blogs only
+create policy "Public can read published blogs" on public.blogs for select using (published = true);
+
+-- Admin can read all blogs (including drafts)
+create policy "Admins can read all blogs" on public.blogs for select using (auth.role() = 'authenticated');
+
+create policy "Admins can insert blogs" on public.blogs for insert with check (auth.role() = 'authenticated');
+create policy "Admins can update blogs" on public.blogs for update using (auth.role() = 'authenticated');
+create policy "Admins can delete blogs" on public.blogs for delete using (auth.role() = 'authenticated');
+

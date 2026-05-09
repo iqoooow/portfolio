@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
-import { LogOut, LayoutDashboard, Database, User, MessageSquare, Code, Layout, Quote, Bell, Activity, Menu, X } from 'lucide-react';
+import { LogOut, LayoutDashboard, Database, User, MessageSquare, Code, Layout, Quote, Bell, Activity, Menu, X, BookOpen } from 'lucide-react';
 import { useNavigate, Routes, Route, Link, useLocation } from 'react-router-dom';
 import ProjectsManager from './ProjectsManager';
 import ProfileManager from './ProfileManager';
@@ -8,6 +8,7 @@ import MessagesManager from './MessagesManager';
 import SkillsManager from './SkillsManager';
 import ServicesManager from './ServicesManager';
 import TestimonialsManager from './TestimonialsManager';
+import BlogsManager from './BlogsManager';
 
 const SidebarLink = ({ to, icon: Icon, label, currentPath }) => {
     const isActive = currentPath === to || (to !== '/admin' && currentPath.startsWith(to));
@@ -137,6 +138,7 @@ const Dashboard = () => {
                     <div className="pt-4 pb-2 px-4 text-xs font-bold tracking-wider text-gray-400 uppercase">Communication</div>
                     <SidebarLink to="/admin/messages" icon={MessageSquare} label="Messages" currentPath={location.pathname} />
                     <SidebarLink to="/admin/testimonials" icon={Quote} label="Testimonials" currentPath={location.pathname} />
+                    <SidebarLink to="/admin/blogs" icon={BookOpen} label="Blog" currentPath={location.pathname} />
                 </nav>
 
                 <div className="pt-6 border-t border-gray-200 dark:border-white/5">
@@ -157,6 +159,7 @@ const Dashboard = () => {
                         <Route path="/projects" element={<ProjectsManager />} />
                         <Route path="/messages" element={<MessagesManager />} />
                         <Route path="/testimonials" element={<TestimonialsManager />} />
+                        <Route path="/blogs" element={<BlogsManager />} />
                     </Routes>
                 </div>
             </main>

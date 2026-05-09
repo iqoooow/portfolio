@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, Heart, Code2 } from 'lucide-react';
+import { Github, Linkedin, Mail, Heart, Code2, Instagram } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 
 const Footer = () => {
@@ -20,8 +20,8 @@ const Footer = () => {
                             <span className="text-gray-900 dark:text-white tracking-tight">iqooow</span>
                         </a>
                         <p className="text-gray-500 dark:text-gray-400 max-w-sm">
-                            {lang === 'uz' 
-                                ? "Mukammallik va ishtiyoq bilan yaratilgan raqamli tajribalar." 
+                            {lang === 'uz'
+                                ? "Mukammallik va ishtiyoq bilan yaratilgan raqamli tajribalar."
                                 : "Crafting digital experiences with passion and code. Building the web of tomorrow."}
                         </p>
                     </div>
@@ -32,6 +32,9 @@ const Footer = () => {
                         </a>
                         <a href="https://linkedin.com/in/ixlosbek-rajabboyev-b87b4539a" target="_blank" rel="noopener noreferrer" className="p-3 rounded-2xl bg-gray-50 dark:bg-white/5 text-gray-600 dark:text-gray-400 hover:bg-indigo-500 hover:text-white transition-all duration-300 shadow-sm border border-gray-200 dark:border-white/5 hover:-translate-y-1">
                             <Linkedin size={20} />
+                        </a>
+                        <a href="https://instagram.com/rjabaev_" target="_blank" rel="noopener noreferrer" className="p-3 rounded-2xl bg-gray-50 dark:bg-white/5 text-gray-600 dark:text-gray-400 hover:bg-indigo-500 hover:text-white transition-all duration-300 shadow-sm border border-gray-200 dark:border-white/5 hover:-translate-y-1">
+                            <Instagram size={20} />
                         </a>
                         <a href="mailto:ixashix7@gmail.com" className="p-3 rounded-2xl bg-gray-50 dark:bg-white/5 text-gray-600 dark:text-gray-400 hover:bg-indigo-500 hover:text-white transition-all duration-300 shadow-sm border border-gray-200 dark:border-white/5 hover:-translate-y-1">
                             <Mail size={20} />

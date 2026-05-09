@@ -1,12 +1,12 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import { PageTransition } from './lib/animations';
 
 // Layouts
 import Layout from './components/layout/Layout';
 import ProtectedRoute from './components/layout/ProtectedRoute';
+import SEO from './components/SEO';
 
 // Public Sections
 import Hero from './components/sections/Hero';
@@ -21,10 +21,15 @@ const Contact = lazy(() => import('./components/sections/Contact'));
 // Admin Pages (Lazy Loaded for Performance)
 const Login = lazy(() => import('./pages/admin/Login'));
 const Dashboard = lazy(() => import('./pages/admin/Dashboard'));
+const BlogPage = lazy(() => import('./pages/Blog'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
+const ResumePage = lazy(() => import('./pages/Resume'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Public Home Component
 const Home = () => (
   <Layout>
+    <SEO />
     <Hero />
     <About />
     <Suspense fallback={<div className="py-32 flex justify-center"><div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div></div>}>
@@ -64,18 +69,32 @@ const FullPageLoader = () => (
   </div>
 );
 
+const ScrollToHash = () => {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    } else if (pathname === '/') {
+        // Only scroll to top on home page if no hash
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [pathname, hash]);
+
+  return null;
+};
+
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    AOS.init({
-      duration: 800,
-      easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-      once: true,
-      mirror: false,
-      offset: 50,
-    });
-    
+    window.scrollTo(0, 0);
     const timer = setTimeout(() => {
         setIsLoading(false);
     }, 1200);
@@ -88,6 +107,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToHash />
       <Toaster 
         position="top-right" 
         toastOptions={{
@@ -96,21 +116,29 @@ function App() {
         }} 
       />
       <Suspense fallback={<FullPageLoader />}>
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<Home />} />
+        <PageTransition>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<Home />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/resume" element={<ResumePage />} />
 
-          {/* Admin Routes */}
-          <Route path="/admin/login" element={<Login />} />
-          <Route
-            path="/admin/*"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
+            {/* Admin Routes */}
+            <Route path="/admin/login" element={<Login />} />
+            <Route
+              path="/admin/*"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* 404 Route */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </PageTransition>
       </Suspense>
     </Router>
   );

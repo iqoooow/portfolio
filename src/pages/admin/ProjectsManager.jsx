@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
-import { Trash2, Plus, Save, ExternalLink, Github, Image, X, Sparkles, Loader2, Link as LinkIcon, Edit3, Database } from 'lucide-react';
+import { Trash2, Plus, Save, ExternalLink, Github, Image as ImageIcon, X, Sparkles, Loader2, Link as LinkIcon, Edit3, Database, Upload } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const ProjectsManager = () => {
@@ -10,6 +10,7 @@ const ProjectsManager = () => {
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [form, setForm] = useState({ title: '', category: '', description: '', image_url: '', repo_link: '', demo_link: '', technologies: [] });
     const [techInput, setTechInput] = useState('');
+    const [uploading, setUploading] = useState(false);
 
     useEffect(() => {
         fetchProjects();
@@ -31,6 +32,35 @@ const ProjectsManager = () => {
 
     const removeTech = (tech) => {
         setForm({ ...form, technologies: form.technologies.filter(t => t !== tech) });
+    };
+
+    const handleFileUpload = async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setUploading(true);
+        try {
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${Math.random()}.${fileExt}`;
+            const filePath = `${fileName}`;
+
+            const { error: uploadError } = await supabase.storage
+                .from('projects')
+                .upload(filePath, file);
+
+            if (uploadError) throw uploadError;
+
+            const { data: { publicUrl } } = supabase.storage
+                .from('projects')
+                .getPublicUrl(filePath);
+
+            setForm(f => ({ ...form, image_url: publicUrl }));
+            toast.success('Rasm yuklandi!');
+        } catch (error) {
+            toast.error('Rasm yuklashda xatolik: ' + error.message);
+        } finally {
+            setUploading(false);
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -143,15 +173,31 @@ const ProjectsManager = () => {
 
                         <div className="space-y-6">
                             <div className="space-y-2 group">
-                                <label className="text-sm font-semibold text-gray-600 dark:text-gray-400 ml-1 block group-focus-within:text-indigo-500">Cover Artwork (URL)</label>
-                                <div className="relative">
-                                    <Image className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                                    <input 
-                                        className="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 dark:bg-[#111] border border-gray-200 dark:border-white/10 focus:outline-none focus:border-indigo-500 transition-all font-medium" 
-                                        placeholder="https://..." 
-                                        value={form.image_url} 
-                                        onChange={e => setForm({ ...form, image_url: e.target.value })} 
-                                    />
+                                <label className="text-sm font-semibold text-gray-600 dark:text-gray-400 ml-1 block group-focus-within:text-indigo-500">Project Artwork</label>
+                                <div className="flex flex-col gap-4">
+                                    {form.image_url ? (
+                                        <div className="relative group w-full h-40 rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10">
+                                            <img src={form.image_url} className="w-full h-full object-cover" alt="Preview" />
+                                            <button type="button" onClick={() => setForm({ ...form, image_url: '' })} className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <X size={14} />
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <label className="w-full h-40 rounded-2xl border-2 border-dashed border-gray-200 dark:border-white/10 flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-indigo-500 hover:bg-indigo-50/30 dark:hover:bg-indigo-500/5 transition-all">
+                                            {uploading ? <Loader2 className="animate-spin text-indigo-500" /> : <Upload className="text-gray-400" />}
+                                            <span className="text-sm font-medium text-gray-500">{uploading ? 'Uploading...' : 'Upload Project Image'}</span>
+                                            <input type="file" className="hidden" accept="image/*" onChange={handleFileUpload} disabled={uploading} />
+                                        </label>
+                                    )}
+                                    <div className="relative">
+                                        <ImageIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                                        <input 
+                                            className="w-full pl-12 pr-5 py-4 rounded-2xl bg-gray-50 dark:bg-[#111] border border-gray-200 dark:border-white/10 focus:outline-none focus:border-indigo-500 transition-all font-medium text-sm" 
+                                            placeholder="Or paste image URL..." 
+                                            value={form.image_url} 
+                                            onChange={e => setForm({ ...form, image_url: e.target.value })} 
+                                        />
+                                    </div>
                                 </div>
                             </div>
 

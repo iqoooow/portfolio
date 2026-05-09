@@ -1,7 +1,9 @@
 import { Mail, Phone, MessageCircle, Send, MapPin, Loader2 } from 'lucide-react';
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../../context/LanguageContext';
+import { staggerContainer, staggerItem } from '../../lib/animations';
 
 const Contact = () => {
     const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
@@ -45,11 +47,17 @@ const Contact = () => {
                 <div className="grid lg:grid-cols-5 gap-16 lg:gap-24 items-center">
                     
                     {/* Info Column */}
-                    <div className="lg:col-span-2" data-aos="fade-right">
+                    <motion.div 
+                        className="lg:col-span-2"
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                    >
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-xs font-semibold text-indigo-600 dark:text-indigo-400 mb-6 border border-indigo-100 dark:border-indigo-500/20">
-                            👋 {lang === 'uz' ? 'Salom Dening' : 'Say Hello'}
+                            👋 {lang === 'uz' ? 'Salom Deng' : 'Say Hello'}
                         </div>
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading mb-6 tracking-tight">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading mb-6 tracking-tight text-gray-900 dark:text-white">
                             {lang === 'uz' ? 'Keling, ' : "Let's "}
                             <span className="gradient-text">
                                 {lang === 'uz' ? 'Bog‘lanamiz' : 'Work Together'}
@@ -98,25 +106,43 @@ const Contact = () => {
                                 </div>
                             </a>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Form Column */}
-                    <div className="lg:col-span-3" data-aos="fade-left">
-                        <div className="glass-card p-8 sm:p-12 rounded-[2.5rem] relative overflow-hidden">
+                    <motion.div 
+                        className="lg:col-span-3"
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <div className="glass-card p-8 sm:p-12 rounded-[2.5rem] relative overflow-hidden bg-white dark:bg-[#0a0a0a]">
                             {/* Success Overlay */}
-                            {status === 'success' && (
-                                <div className="absolute inset-0 z-20 bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-md flex-center flex-col animate-fade-in rounded-[2.5rem]">
-                                    <div className="w-20 h-20 rounded-full bg-green-100 dark:bg-green-500/20 text-green-500 flex-center mb-6 animate-scale-up">
-                                        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
-                                    </div>
-                                    <h3 className="text-2xl font-bold font-heading text-gray-900 dark:text-white mb-2">
-                                        {lang === 'uz' ? 'Xabar Yuborildi!' : 'Message Sent!'}
-                                    </h3>
-                                    <p className="text-gray-500 dark:text-gray-400">
-                                        {lang === 'uz' ? 'Tez orada siz bilan bog‘lanaman.' : "I'll get back to you shortly."}
-                                    </p>
-                                </div>
-                            )}
+                            <AnimatePresence>
+                                {status === 'success' && (
+                                    <motion.div 
+                                        className="absolute inset-0 z-20 bg-white/95 dark:bg-[#0a0a0a]/95 backdrop-blur-md flex-center flex-col rounded-[2.5rem]"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                    >
+                                        <motion.div 
+                                            className="w-20 h-20 rounded-full bg-green-100 dark:bg-green-500/20 text-green-500 flex-center mb-6"
+                                            initial={{ scale: 0.5 }}
+                                            animate={{ scale: 1 }}
+                                            transition={{ type: "spring", stiffness: 200 }}
+                                        >
+                                            <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                                        </motion.div>
+                                        <h3 className="text-2xl font-bold font-heading text-gray-900 dark:text-white mb-2">
+                                            {lang === 'uz' ? 'Xabar Yuborildi!' : 'Message Sent!'}
+                                        </h3>
+                                        <p className="text-gray-500 dark:text-gray-400">
+                                            {lang === 'uz' ? 'Tez orada siz bilan bog‘lanaman.' : "I'll get back to you shortly."}
+                                        </p>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
 
                             <form className="space-y-6 relative z-10" onSubmit={handleSubmit}>
                                 <div className="grid md:grid-cols-2 gap-6">
@@ -203,7 +229,7 @@ const Contact = () => {
                                 </button>
                             </form>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>

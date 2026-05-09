@@ -1,7 +1,9 @@
 import { User, Code, Globe, Server, Database, Boxes, CheckCircle2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { supabase } from '../../lib/supabase';
 import { useLanguage } from '../../context/LanguageContext';
+import { staggerContainer, staggerItem, spring } from '../../lib/animations';
 
 const IconMap = {
     Globe, Server, Database, Code, Boxes
@@ -42,7 +44,13 @@ const About = () => {
 
             <div className="container grid md:grid-cols-2 gap-16 lg:gap-24 items-center">
                 {/* Image/Visual Side */}
-                <div className="relative group" data-aos="fade-right">
+                <motion.div 
+                    className="relative group"
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                >
                     <div className="aspect-square rounded-[3rem] overflow-hidden border border-gray-200 dark:border-white/10 shadow-2xl max-w-md mx-auto relative z-10 bg-white dark:bg-[#0a0a0a] transition-all duration-500 group-hover:shadow-[0_0_40px_rgba(99,102,241,0.2)] group-hover:-translate-y-2">
                         <div className="w-full h-full flex-center text-gray-300 dark:text-gray-700 relative overflow-hidden">
                             {profile.hero_image_url ? (
@@ -74,30 +82,35 @@ const About = () => {
                             <div className="text-xs text-muted text-gray-500">Projects Done</div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Content Side */}
-                <div data-aos="fade-left">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 text-xs font-semibold text-gray-600 dark:text-gray-300 mb-6 border border-gray-200 dark:border-white/10">
+                <motion.div
+                    initial="initial"
+                    whileInView="animate"
+                    viewport={{ once: true }}
+                    variants={staggerContainer}
+                >
+                    <motion.div variants={staggerItem} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 dark:bg-white/5 text-xs font-semibold text-gray-600 dark:text-gray-300 mb-6 border border-gray-200 dark:border-white/10">
                         ✨ {lang === 'uz' ? 'Men bilan tanishing' : 'Get to know me'}
-                    </div>
+                    </motion.div>
                     
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading mb-6 tracking-tight">
+                    <motion.h2 variants={staggerItem} className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading mb-6 tracking-tight text-gray-900 dark:text-white">
                         {lang === 'uz' ? 'Men ' : 'About '}
                         <span className="gradient-text">
                             {lang === 'uz' ? 'haqimda' : 'Me'}
                         </span>
-                    </h2>
+                    </motion.h2>
                     
-                    <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-10">
+                    <motion.p variants={staggerItem} className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-10 text-gray-900 dark:text-white">
                         {profile.about_bio || (lang === 'uz' ? 'Men raqamli mahsulotlarni loyihalash va rivojlantirishga ishtiyoqi bor Full-Stack dasturchiman.' : 'I am a passionate Full-Stack developer dedicated to designing and building premium digital products.')}
-                    </p>
+                    </motion.p>
 
                     <div className="space-y-6">
                         {skills.map((skill, index) => {
                             const Icon = IconMap[skill.icon] || Code;
                             return (
-                                <div key={skill.id} className="group cursor-default">
+                                <motion.div key={skill.id} variants={staggerItem} className="group cursor-default">
                                     <div className="flex justify-between mb-2 font-medium">
                                         <span className="flex items-center gap-2 text-gray-800 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                                             <Icon size={18} className="text-indigo-500 transition-transform group-hover:scale-110" /> {skill.name}
@@ -105,20 +118,21 @@ const About = () => {
                                         <span className="text-gray-500 dark:text-gray-400 font-mono text-sm">{skill.percentage}%</span>
                                     </div>
                                     <div className="h-2.5 w-full bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden border border-gray-200 dark:border-white/5">
-                                        <div
+                                        <motion.div
                                             className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full relative"
-                                            style={{ width: `${skill.percentage}%` }}
-                                            data-aos="fade-right"
-                                            data-aos-delay={index * 100}
+                                            initial={{ width: 0 }}
+                                            whileInView={{ width: `${skill.percentage}%` }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 1, delay: 0.2 + (index * 0.1), ease: [0.16, 1, 0.3, 1] }}
                                         >
                                             <div className="absolute top-0 right-0 bottom-0 left-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.2)_50%,transparent_75%,transparent_100%)] bg-[length:20px_20px] animate-[slide_1s_linear_infinite]"></div>
-                                        </div>
+                                        </motion.div>
                                     </div>
-                                </div>
+                                </motion.div>
                             );
                         })}
                     </div>
-                </div>
+                </motion.div>
             </div>
             <style>{`
                 @keyframes slide {
