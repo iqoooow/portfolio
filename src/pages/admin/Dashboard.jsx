@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { LogOut, LayoutDashboard, Database, User, MessageSquare, Code, Layout, Quote, Bell, Activity, Menu, X, BookOpen } from 'lucide-react';
 import { useNavigate, Routes, Route, Link, useLocation } from 'react-router-dom';
+import SEO from '../../components/SEO';
 import ProjectsManager from './ProjectsManager';
 import ProfileManager from './ProfileManager';
 import MessagesManager from './MessagesManager';
@@ -105,6 +106,7 @@ const Dashboard = () => {
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-[#050505] flex">
+            <SEO title="Admin Dashboard" robots="noindex, nofollow" />
             {/* Mobile Header */}
             <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-white/90 dark:bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-gray-200 dark:border-white/5 z-30 flex items-center justify-between px-4 shadow-sm">
                 <div className="text-xl font-bold font-heading gradient-text tracking-tight">iqooow Admin</div>

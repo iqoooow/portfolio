@@ -27,19 +27,34 @@ const ResumePage = lazy(() => import('./pages/Resume'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Public Home Component
-const Home = () => (
-  <Layout>
-    <SEO />
-    <Hero />
-    <About />
-    <Suspense fallback={<div className="py-32 flex justify-center"><div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div></div>}>
-      <Services />
-      <Portfolio />
-      <Testimonials />
-      <Contact />
-    </Suspense>
-  </Layout>
-);
+const Home = () => {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ixlosbek Rajabboyev",
+    "url": "https://www.iqooow.uz",
+    "jobTitle": "Full Stack Developer",
+    "sameAs": [
+      "https://github.com/iqoooow",
+      "https://linkedin.com/in/iqooow"
+    ],
+    "description": "Ixlosbek Rajabboyev - Full Stack Dasturchi. Zamonaviy, tez va xavfsiz web loyihalar yarataman."
+  };
+
+  return (
+    <Layout>
+      <SEO structuredData={structuredData} />
+      <Hero />
+      <About />
+      <Suspense fallback={<div className="py-32 flex justify-center"><div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div></div>}>
+        <Services />
+        <Portfolio />
+        <Testimonials />
+        <Contact />
+      </Suspense>
+    </Layout>
+  );
+};
 
 const FullPageLoader = () => (
   <div className="fixed inset-0 z-[100] flex-center bg-[var(--bg-light)] dark:bg-[var(--bg-dark)] transition-opacity duration-500">
